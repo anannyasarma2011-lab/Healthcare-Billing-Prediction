@@ -1,4 +1,9 @@
 import streamlit as st
+import streamlit as st
+
+st.title("TEST APP")
+st.success("Streamlit is working!")
+st.write("If you can see this page, the issue is with model loading.")
 import pandas as pd
 import numpy as np
 import joblib
