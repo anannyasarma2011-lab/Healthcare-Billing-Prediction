@@ -1,6 +1,7 @@
-df = pd.read_excel("healthcare_ml_step6_completed.xlsx")
 import streamlit as st
 import pandas as pd
+import plotly.express as px
+df = pd.read_excel("healthcare_ml_step6_completed.xlsx")
 st.sidebar.header("Filters")
 
 condition = st.sidebar.selectbox(
