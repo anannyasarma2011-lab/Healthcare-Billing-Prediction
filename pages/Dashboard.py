@@ -259,3 +259,36 @@ fig.update_traces(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+st.markdown("---")
+
+st.subheader("Age Group Distribution")
+
+# Create age groups
+filtered_df["Age Group"] = pd.cut(
+    filtered_df["age"],
+    bins=[0, 20, 40, 60, 100],
+    labels=["0-20", "21-40", "41-60", "60+"]
+)
+
+age_counts = (
+    filtered_df["Age Group"]
+    .value_counts()
+    .reset_index()
+)
+
+age_counts.columns = ["Age Group", "Count"]
+
+fig = px.bar(
+    age_counts,
+    x="Age Group",
+    y="Count",
+    color="Age Group",
+    title="Patient Distribution by Age Group"
+)
+
+fig.update_layout(
+    title_x=0.3,
+    showlegend=False
+)
+
+st.plotly_chart(fig, use_container_width=True)
