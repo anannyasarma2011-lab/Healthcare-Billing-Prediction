@@ -94,12 +94,66 @@ st.write(
 
 # KPI Cards
 
-st.markdown("---")
-
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.metric(
+    st.markdown(f"""
+    <div style="
+        background-color:#f0f2f6;
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:2px 2px 10px rgba(0,0,0,0.1);
+    ">
+        <h4>👥 Total Patients</h4>
+        <h1>{filtered_df.shape[0]}</h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+with col2:
+    st.markdown(f"""
+    <div style="
+        background-color:#f0f2f6;
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:2px 2px 10px rgba(0,0,0,0.1);
+    ">
+        <h4>💰 Average Billing</h4>
+        <h1>₹ {filtered_df['billed_amount_inr'].mean():,.0f}</h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+with col3:
+    st.markdown(f"""
+    <div style="
+        background-color:#f0f2f6;
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:2px 2px 10px rgba(0,0,0,0.1);
+    ">
+        <h4>🛏 Average LOS</h4>
+        <h1>{filtered_df['length_of_stay_days'].mean():.2f} Days</h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+with col4:
+    st.markdown(f"""
+    <div style="
+        background-color:#f0f2f6;
+        padding:20px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:2px 2px 10px rgba(0,0,0,0.1);
+    ">
+        <h4>🏥 Total Revenue</h4>
+        <h1>₹ {filtered_df['billed_amount_inr'].sum():,.0f}</h1>
+    </div>
+    """, unsafe_allow_html=True)
         label="👥 Total Patients",
         value=f"{filtered_df.shape[0]:,}"
     )
