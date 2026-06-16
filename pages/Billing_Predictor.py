@@ -23,7 +23,7 @@ def load_model():
 model = load_model()
 
 # App title and description
-st.title("🏥 Healthcare Billing Amount Prediction")
+st.title("🔮 Healthcare Billing Amount Prediction")
 st.markdown("""
 This application predicts the estimated billing amount for hospital services based on patient details.
 Enter the patient information below and click **Predict Billing Amount** to get the estimated cost.
