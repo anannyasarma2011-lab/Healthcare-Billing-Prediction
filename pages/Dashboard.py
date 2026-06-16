@@ -54,3 +54,67 @@ fig = px.histogram(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+st.markdown("---")
+
+st.subheader("Top Medical Conditions")
+
+condition_counts = (
+    df['medical_condition']
+    .value_counts()
+    .reset_index()
+)
+
+condition_counts.columns = ['Medical Condition', 'Count']
+
+fig = px.bar(
+    condition_counts,
+    x='Medical Condition',
+    y='Count',
+    title='Most Common Medical Conditions'
+)
+
+st.plotly_chart(fig, use_container_width=True)
+st.markdown("---")
+
+st.subheader("Most Used Services")
+
+service_counts = (
+    df['service_type']
+    .value_counts()
+    .reset_index()
+)
+
+service_counts.columns = ['Service Type', 'Count']
+
+fig = px.bar(
+    service_counts,
+    x='Service Type',
+    y='Count',
+    title='Most Frequently Used Services'
+)
+
+st.plotly_chart(fig, use_container_width=True)
+st.markdown("---")
+
+st.subheader("Length of Stay Distribution")
+
+fig = px.histogram(
+    df,
+    x='length_of_stay_days',
+    nbins=15,
+    title='Distribution of Hospital Stay Duration'
+)
+
+st.plotly_chart(fig, use_container_width=True)
+st.markdown("---")
+
+st.subheader("Billing Amount vs Length of Stay")
+
+fig = px.scatter(
+    df,
+    x='length_of_stay_days',
+    y='billed_amount_inr',
+    title='Relationship between LOS and Billing Amount'
+)
+
+st.plotly_chart(fig, use_container_width=True)
