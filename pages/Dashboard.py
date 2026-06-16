@@ -16,7 +16,13 @@ service = st.sidebar.selectbox(
 
 gender = st.sidebar.selectbox(
     "Gender",
-    ["All"] + sorted(df["gender"].unique().tolist())
+    ["All"] + sorted(
+        df["gender"]
+        .dropna()
+        .astype(str)
+        .unique()
+        .tolist()
+    )
 )
 filtered_df = df.copy()
 
