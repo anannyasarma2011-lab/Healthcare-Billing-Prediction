@@ -233,3 +233,29 @@ fig = px.scatter(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+st.markdown("---")
+
+st.subheader("Gender Distribution")
+
+gender_counts = (
+    filtered_df["gender"]
+    .value_counts()
+    .reset_index()
+)
+
+gender_counts.columns = ["Gender", "Count"]
+
+fig = px.pie(
+    gender_counts,
+    names="Gender",
+    values="Count",
+    title="Patient Distribution by Gender",
+    hole=0.4      # Makes it a donut chart (looks nicer)
+)
+
+fig.update_traces(
+    textposition="inside",
+    textinfo="percent+label"
+)
+
+st.plotly_chart(fig, use_container_width=True)
