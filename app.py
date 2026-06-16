@@ -20,3 +20,15 @@ Use the sidebar to navigate between pages.
 """)
 
 st.sidebar.success("Select a page above.")
+st.title("🏠 Home")
+
+st.markdown("""
+Welcome to the Healthcare Analytics Platform.
+
+This application contains:
+
+- 🔮 Billing Amount Prediction Model
+- 📊 Healthcare Analytics Dashboard
+
+Use the sidebar to navigate between pages.
+""")
