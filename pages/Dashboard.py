@@ -1,6 +1,38 @@
+df = pd.read_excel("healthcare_ml_step6_completed.xlsx")
 import streamlit as st
 import pandas as pd
+st.sidebar.header("Filters")
 
+condition = st.sidebar.selectbox(
+    "Medical Condition",
+    ["All"] + sorted(df["medical_condition"].unique().tolist())
+)
+
+service = st.sidebar.selectbox(
+    "Service Type",
+    ["All"] + sorted(df["service_type"].unique().tolist())
+)
+
+gender = st.sidebar.selectbox(
+    "Gender",
+    ["All"] + sorted(df["gender"].unique().tolist())
+)
+filtered_df = df.copy()
+
+if condition != "All":
+    filtered_df = filtered_df[
+        filtered_df["medical_condition"] == condition
+    ]
+
+if service != "All":
+    filtered_df = filtered_df[
+        filtered_df["service_type"] == service
+    ]
+
+if gender != "All":
+    filtered_df = filtered_df[
+        filtered_df["gender"] == gender
+    ]
 st.set_page_config(
     page_title="Healthcare Dashboard",
     page_icon="📊",
@@ -8,7 +40,7 @@ st.set_page_config(
 )
 
 # Load dataset
-df = pd.read_excel("healthcare_ml_step6_completed.xlsx")
+filtered_df = pd.read_excel("healthcare_ml_step6_completed.xlsx")
 
 st.title("📊 Healthcare Analytics Dashboard")
 
@@ -20,25 +52,25 @@ col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.metric(
         "Total Patients",
-        df.shape[0]
+        filtered_df.shape[0]
     )
 
 with col2:
     st.metric(
         "Average Billing",
-        f"₹ {df['billed_amount_inr'].mean():,.0f}"
+        f"₹ {filtered_df['billed_amount_inr'].mean():,.0f}"
     )
 
 with col3:
     st.metric(
         "Average LOS",
-        round(df['length_of_stay_days'].mean(), 2)
+        round(filtered_df['length_of_stay_days'].mean(), 2)
     )
 
 with col4:
     st.metric(
         "Total Revenue",
-        f"₹ {df['billed_amount_inr'].sum():,.0f}"
+        f"₹ {filtered_df['billed_amount_inr'].sum():,.0f}"
     )
 import plotly.express as px
 
@@ -47,7 +79,7 @@ st.markdown("---")
 st.subheader("Billing Amount Distribution")
 
 fig = px.histogram(
-    df,
+    filtered_df,
     x='billed_amount_inr',
     nbins=30,
     title="Distribution of Billing Amount"
@@ -59,7 +91,7 @@ st.markdown("---")
 st.subheader("Top Medical Conditions")
 
 condition_counts = (
-    df['medical_condition']
+    filtered_df['medical_condition']
     .value_counts()
     .reset_index()
 )
@@ -79,7 +111,7 @@ st.markdown("---")
 st.subheader("Most Used Services")
 
 service_counts = (
-    df['service_type']
+    filtered_df['service_type']
     .value_counts()
     .reset_index()
 )
@@ -99,7 +131,7 @@ st.markdown("---")
 st.subheader("Length of Stay Distribution")
 
 fig = px.histogram(
-    df,
+    filtered_df,
     x='length_of_stay_days',
     nbins=15,
     title='Distribution of Hospital Stay Duration'
@@ -111,7 +143,7 @@ st.markdown("---")
 st.subheader("Billing Amount vs Length of Stay")
 
 fig = px.scatter(
-    df,
+    filtered_df,
     x='length_of_stay_days',
     y='billed_amount_inr',
     title='Relationship between LOS and Billing Amount'
