@@ -123,6 +123,10 @@ with col4:
     )
 
 st.markdown("---")
+st.caption(
+    f"Showing data for "
+    f"{condition} | {service} | {gender}"
+)
 
 # ---------------------------------------------------
 # Billing Distribution
