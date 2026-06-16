@@ -40,3 +40,17 @@ with col4:
         "Total Revenue",
         f"₹ {df['billed_amount_inr'].sum():,.0f}"
     )
+import plotly.express as px
+
+st.markdown("---")
+
+st.subheader("Billing Amount Distribution")
+
+fig = px.histogram(
+    df,
+    x='billed_amount_inr',
+    nbins=30,
+    title="Distribution of Billing Amount"
+)
+
+st.plotly_chart(fig, use_container_width=True)
