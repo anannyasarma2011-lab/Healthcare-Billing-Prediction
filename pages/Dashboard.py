@@ -6,12 +6,24 @@ st.sidebar.header("Filters")
 
 condition = st.sidebar.selectbox(
     "Medical Condition",
-    ["All"] + sorted(df["medical_condition"].unique().tolist())
+    ["All"] + sorted(
+        df["medical_condition"]
+        .dropna()
+        .astype(str)
+        .unique()
+        .tolist()
+    )
 )
 
 service = st.sidebar.selectbox(
     "Service Type",
-    ["All"] + sorted(df["service_type"].unique().tolist())
+    ["All"] + sorted(
+        df["service_type"]
+        .dropna()
+        .astype(str)
+        .unique()
+        .tolist()
+    )
 )
 
 gender = st.sidebar.selectbox(
