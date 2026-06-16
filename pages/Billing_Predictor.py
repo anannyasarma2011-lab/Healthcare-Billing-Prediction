@@ -11,7 +11,7 @@ import joblib
 # Set page config
 st.set_page_config(
     page_title="Healthcare Billing Predictor",
-    page_icon="🏥",
+    page_icon="🔮",
     layout="wide"
 )
 
