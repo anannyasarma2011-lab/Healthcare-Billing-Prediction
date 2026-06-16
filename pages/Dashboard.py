@@ -92,34 +92,37 @@ st.write(
 # KPI Cards
 # ---------------------------------------------------
 
+# KPI Cards
+
+st.markdown("---")
+
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.metric(
-        "👥 Total Patients",
-        filtered_df.shape[0]
+        label="👥 Total Patients",
+        value=f"{filtered_df.shape[0]:,}"
     )
 
 with col2:
     st.metric(
-        "💰 Average Billing",
-        f"₹ {filtered_df['billed_amount_inr'].mean():,.0f}"
+        label="💰 Average Billing",
+        value=f"₹ {filtered_df['billed_amount_inr'].mean():,.0f}"
     )
 
 with col3:
     st.metric(
-        "🛏 Average LOS",
-        round(
-            filtered_df['length_of_stay_days'].mean(),
-            2
-        )
+        label="🛏 Average LOS",
+        value=f"{filtered_df['length_of_stay_days'].mean():.2f} Days"
     )
 
 with col4:
     st.metric(
-        "🏥 Total Revenue",
-        f"₹ {filtered_df['billed_amount_inr'].sum():,.0f}"
+        label="🏥 Total Revenue",
+        value=f"₹ {filtered_df['billed_amount_inr'].sum():,.0f}"
     )
+
+st.markdown("---")
 
 # ---------------------------------------------------
 # Billing Distribution
