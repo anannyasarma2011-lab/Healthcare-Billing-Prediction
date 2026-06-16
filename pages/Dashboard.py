@@ -1,7 +1,27 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+
+# ---------------------------------------------------
+# Page Config
+# ---------------------------------------------------
+
+st.set_page_config(
+    page_title="Healthcare Dashboard",
+    page_icon="📊",
+    layout="wide"
+)
+
+# ---------------------------------------------------
+# Load Dataset
+# ---------------------------------------------------
+
 df = pd.read_excel("healthcare_ml_step6_completed.xlsx")
+
+# ---------------------------------------------------
+# Sidebar Filters
+# ---------------------------------------------------
+
 st.sidebar.header("Filters")
 
 condition = st.sidebar.selectbox(
@@ -36,6 +56,11 @@ gender = st.sidebar.selectbox(
         .tolist()
     )
 )
+
+# ---------------------------------------------------
+# Apply Filters
+# ---------------------------------------------------
+
 filtered_df = df.copy()
 
 if condition != "All":
@@ -52,46 +77,53 @@ if gender != "All":
     filtered_df = filtered_df[
         filtered_df["gender"] == gender
     ]
-st.set_page_config(
-    page_title="Healthcare Dashboard",
-    page_icon="📊",
-    layout="wide"
-)
 
-# Load dataset
-filtered_df = pd.read_excel("healthcare_ml_step6_completed.xlsx")
+# ---------------------------------------------------
+# Dashboard Title
+# ---------------------------------------------------
 
 st.title("📊 Healthcare Analytics Dashboard")
 
-st.write("Overview of healthcare billing and patient statistics")
+st.write(
+    "Overview of healthcare billing and patient statistics"
+)
 
-# Metrics
+# ---------------------------------------------------
+# KPI Cards
+# ---------------------------------------------------
+
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.metric(
-        "Total Patients",
+        "👥 Total Patients",
         filtered_df.shape[0]
     )
 
 with col2:
     st.metric(
-        "Average Billing",
+        "💰 Average Billing",
         f"₹ {filtered_df['billed_amount_inr'].mean():,.0f}"
     )
 
 with col3:
     st.metric(
-        "Average LOS",
-        round(filtered_df['length_of_stay_days'].mean(), 2)
+        "🛏 Average LOS",
+        round(
+            filtered_df['length_of_stay_days'].mean(),
+            2
+        )
     )
 
 with col4:
     st.metric(
-        "Total Revenue",
+        "🏥 Total Revenue",
         f"₹ {filtered_df['billed_amount_inr'].sum():,.0f}"
     )
-import plotly.express as px
+
+# ---------------------------------------------------
+# Billing Distribution
+# ---------------------------------------------------
 
 st.markdown("---")
 
@@ -105,6 +137,11 @@ fig = px.histogram(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+# ---------------------------------------------------
+# Top Medical Conditions
+# ---------------------------------------------------
+
 st.markdown("---")
 
 st.subheader("Top Medical Conditions")
@@ -115,7 +152,10 @@ condition_counts = (
     .reset_index()
 )
 
-condition_counts.columns = ['Medical Condition', 'Count']
+condition_counts.columns = [
+    'Medical Condition',
+    'Count'
+]
 
 fig = px.bar(
     condition_counts,
@@ -125,6 +165,11 @@ fig = px.bar(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+# ---------------------------------------------------
+# Most Used Services
+# ---------------------------------------------------
+
 st.markdown("---")
 
 st.subheader("Most Used Services")
@@ -135,7 +180,10 @@ service_counts = (
     .reset_index()
 )
 
-service_counts.columns = ['Service Type', 'Count']
+service_counts.columns = [
+    'Service Type',
+    'Count'
+]
 
 fig = px.bar(
     service_counts,
@@ -145,6 +193,11 @@ fig = px.bar(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+# ---------------------------------------------------
+# LOS Distribution
+# ---------------------------------------------------
+
 st.markdown("---")
 
 st.subheader("Length of Stay Distribution")
@@ -157,6 +210,11 @@ fig = px.histogram(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+# ---------------------------------------------------
+# Billing vs LOS
+# ---------------------------------------------------
+
 st.markdown("---")
 
 st.subheader("Billing Amount vs Length of Stay")
