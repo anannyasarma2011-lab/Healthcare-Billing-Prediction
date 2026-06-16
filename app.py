@@ -13,8 +13,8 @@ Welcome to the Healthcare Analytics Platform.
 
 This application contains:
 
-- 📊 Healthcare Analytics Dashboard
 - 🔮 Billing Amount Prediction Model
+- 📊 Healthcare Analytics Dashboard
 
 Use the sidebar to navigate between pages.
 """)
